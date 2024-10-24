@@ -1,4 +1,6 @@
-import processing.net.*;  
+import processing.net.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -7,14 +9,32 @@ List<Player> players;
 int id = 0;
 int blockId = 0;
 String blocks = "";
+String ipAddress = "IP not found";
+int port = 5204;
 
 void setup() {
-  server = new Server(this, 5204);  // Open the server on port 5204
+  size(400, 400);  // Set the window size
+  try {
+    // Get the current IP address
+    InetAddress inetAddress = InetAddress.getLocalHost();
+    ipAddress = inetAddress.getHostAddress();
+    println("Server IP: " + ipAddress + "\nPort: " + port);
+  } catch (UnknownHostException e) {
+    println("Failed to get IP address: " + e.getMessage());
+  }
+  
+  server = new Server(this, port);  // Open the server on port 5204
   players = new ArrayList<Player>();
   println("Server started.");
 }
 
 void draw() {
+  background(200);  // Clear the window
+  fill(0);
+  textSize(20);
+  textAlign(CENTER, CENTER);
+  text("Server IP: " + ipAddress + "\nPort: " + port, width / 2, height / 2);  // Display the IP address on the screen
+
   Client client = server.available();
   
   // If a new client connects
