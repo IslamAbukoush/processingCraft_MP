@@ -20,9 +20,10 @@ public class Block {
     realX = x*blockSize - playerX+width/2+blockSize/2;
     realY = y*blockSize - playerY+height/2+blockSize/2;
     if(checkCollision()) {
-      shouldRemove = true;
+      this.shouldRemove = true;
     }
   }
+  
   Block(int x, int y, int id, int slot) {
     this.x = x;
     this.y = y;
@@ -34,6 +35,7 @@ public class Block {
     realY = y*blockSize - playerY+height/2+blockSize/2;
     if(checkCollision()) {
       shouldRemove = true;
+      client.write("#"+id+"\n");
     }
   }
   Block(int x, int y, String type) {
@@ -45,6 +47,7 @@ public class Block {
     realY = y*blockSize - playerY+height/2+blockSize/2;
     if(checkCollision()) {
       shouldRemove = true;
+      client.write("#"+id+"\n");
     }
   }
   
